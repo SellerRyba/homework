@@ -1,8 +1,8 @@
 package Homework.module8;
 
-class Circle extends Shape{
+public class Triangle extends Shape {
     @Override
     public String getName(){
-        return "Circle";
+        return "Triangle";
     }
 }

@@ -1,8 +1,8 @@
 package Homework.module8;
 
-class Circle extends Shape{
+public class Octagon extends Shape{
     @Override
     public String getName(){
-        return "Circle";
+        return "Octagon";
     }
 }
