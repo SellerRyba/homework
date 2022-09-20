@@ -12,5 +12,7 @@ public class ShapeTest {
         System.out.println(rectangle.getName());
         Octagon octagon = new Octagon();
         System.out.println(octagon.getName());
+        ShapeDetected shapeDetected = new ShapeDetected();
+        shapeDetected.shapeDetected(triangle);
     }
 }
