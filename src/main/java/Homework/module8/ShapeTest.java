@@ -2,15 +2,15 @@ package Homework.module8;
 
 public class ShapeTest {
     public static void main(String[] args) {
-        Circle circle = new Circle();
+        Shape circle = new Circle();
         System.out.println(circle.getName());
-        Triangle triangle = new Triangle();
+        Shape triangle = new Triangle();
         System.out.println(triangle.getName());
-        Quad quad = new Quad();
+        Shape quad = new Quad();
         System.out.println(quad.getName());
-        Rectangle rectangle = new Rectangle();
+        Shape rectangle = new Rectangle();
         System.out.println(rectangle.getName());
-        Octagon octagon = new Octagon();
+        Shape octagon = new Octagon();
         System.out.println(octagon.getName());
         ShapeDetected shapeDetected = new ShapeDetected();
         shapeDetected.shapeDetected(triangle);
