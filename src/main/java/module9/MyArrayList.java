@@ -1,4 +1,6 @@
-package module9.ArrayList;
+package module9;
+
+import java.util.Objects;
 
 public class MyArrayList<E> {
     private Object[] arr;
@@ -27,6 +29,7 @@ public class MyArrayList<E> {
     }
 
     public void remove(int index) {
+        Objects.checkIndex(index, size);
         int reSize = size - index - 1;
         E removedIndex = (E) arr[index];
         System.arraycopy(arr, index + 1, arr, index, reSize);
@@ -43,6 +46,7 @@ public class MyArrayList<E> {
     }
 
     public Object get(int index) {
+        Objects.checkIndex(index, size);
         return (E) arr[index];
     }
 
