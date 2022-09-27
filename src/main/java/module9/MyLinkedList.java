@@ -2,67 +2,73 @@ package module9;
 
 import java.util.Objects;
 
-public class MyLinkedList<E> {
-    static class Node<E> {
-        E item;
-        Node<E> next;
+public class MyLinkedList<T> {
 
-        public Node(E item) {
-            this.item = item;
+    static class Node<T> {
+        T element;
+        Node<T> next;
+
+        public Node(T element) {
+            this.element = element;
         }
     }
-    private Node<E> first;
-    private Node<E> last;
+
+    private Node<T> first;
+    private Node<T> last;
     private int size;
 
-    public void add(E value) {
-        Node<E> node = new Node (value);
-        if (size == 0){
-            first = last = node;
+    public void add(T element) {
+        Node newNode = new Node<>(element);
+        if (size == 0) {
+            first = this.last = newNode;
         } else {
-            this.last.next = node;
-            last = node;
+            last.next = newNode;
+            last = newNode;
         }
         size++;
     }
 
-    public void remove(int index) {
-        Objects.checkIndex(index, size);
-        E removeItem;
-        if (index == 0){
-            removeItem = first.item;
-            first = first.next;
-            if (first == null){
-                last = null;
-            }
-        }else {
-            Node<E> prev = getIndex(index - 1);
-            prev = (Node<E>) prev.item;
-            prev.next = prev.next.next;
-            if (index == size - 1){
-                last = prev;
-            }
-        }
-        size--;
-    }
-
-    public void clear() {
-
-    }
-
-    public int size() {
-        return size;
-    }
-    private Node<E> getIndex(int index){
-        Node <E> node = first;
+    private Node<T> getIndex(int index) {
+        Node<T> node = first;
         for (int i = 0; i < index; i++) {
             node = node.next;
         }
         return node;
     }
 
-    public Node<E> get(int index) {
+    public T remove(int index) {
         Objects.checkIndex(index, size);
-        return getIndex(index);
+        T removeItem;
+        if (index == 0) {
+            removeItem = first.element;
+            first = first.next;
+            if (first == null) {
+                last = null;
+            }
+        } else {
+            Node<T> prev = getIndex(index - 1);
+            removeItem = prev.element;
+            prev.next = prev.next.next;
+            if (index == size - 1) {
+                last = prev;
+            }
+        }
+        size--;
+
+        return removeItem;
+    }
+
+    public void clear() {
+        first = last = null;
+        size = 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public T get(int index) {
+        Objects.checkIndex(index, size);
+        return getIndex(index).element;
     }
 }
