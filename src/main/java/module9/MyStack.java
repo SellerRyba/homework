@@ -2,7 +2,7 @@ package module9;
 
 import java.util.Objects;
 
-public class MyQueue<T> {
+public class MyStack<T> {
     static class Node<T> {
         T element;
         Node<T> next;
@@ -24,13 +24,13 @@ public class MyQueue<T> {
         return node;
     }
 
-    public void add(T element) {
+    public void push(T element) {
         Node newNode = new Node<>(element);
         if (size == 0) {
             head = this.tail = newNode;
         } else {
-            tail.next = newNode;
-            tail = newNode;
+            head.next = head;
+            head = newNode;
         }
         size++;
     }
@@ -38,21 +38,20 @@ public class MyQueue<T> {
     public void remove(int index) {
         Objects.checkIndex(index, size);
         T removeItem;
-        if (index == 0){
+        if (index == 0) {
             removeItem = head.element;
             head = head.next;
-            if (head == null){
+            if (head == null) {
                 tail = null;
             } else {
                 Node<T> prev = getIndex(index - 1);
                 removeItem = prev.element;
                 prev.next = prev.next.next;
-                if (index == size - 1){
+                if (index == size - 1) {
                     tail = prev;
                 }
             }
         }
-        size--;
     }
 
     public void clear() {
@@ -68,9 +67,9 @@ public class MyQueue<T> {
         return head.element;
     }
 
-    public T poll() {
+    public T pop() {
         head = head.next;
+        size--;
         return head.element;
     }
-
 }
