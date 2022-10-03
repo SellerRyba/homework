@@ -1,5 +1,6 @@
 package module9;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class MyHashMap<K, V> {
@@ -43,6 +44,15 @@ public class MyHashMap<K, V> {
         public int hashCode() {
             return Objects.hash(getKey(), getValue(), next);
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "key=" + key +
+                    ", value=" + value +
+                    ", next=" + next +
+                    '}';
+        }
     }
 
     public static int calculateIndex(Object key, int tableCapacity) {
@@ -65,34 +75,47 @@ public class MyHashMap<K, V> {
         }
     }
 
-    public void remove(K key){
-        for (int i = 0; i < size; i++) {
-            if (table[i].getKey().equals(key)) {
-                table[i] = table[i + 1];
+    public void remove(K key) {
+        int index = calculateIndex(key, table.length);
+        var current = table[index];
+        if (current != null && current.getKey().equals(key)) {
+            table[index] = current.next;
+            size--;
+        }
+        while (current.next != null) {
+            if (current.next.getKey().equals(key)) {
+                current.next = current.next.next;
                 size--;
             }
-            }
+            current = current.next;
+        }
     }
 
-    public V get(K key){
+    public V get(K key) {
         for (int i = 0; i < size; i++) {
-            if (table[i].getKey().equals(key)){
+            if (table[i].getKey().equals(key)) {
                 return table[i].value;
+            } else if (table[i].next.getKey().equals(key)) {
+                return table[i].next.value;
             }
         }
         return null;
     }
 
-    public void clear(){
-        for (int i = 0; i < size; i++) {
-            table[i] = null;
-            table[i].next = null;
-        }
+    public void clear() {
+        table = new Node[DEFAULT_CAPACITY];
         size = 0;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
+    @Override
+    public String toString() {
+        return "MyHashMap{" +
+                "table=" + Arrays.toString(table) +
+                ", size=" + size +
+                '}';
+    }
 }

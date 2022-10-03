@@ -10,6 +10,14 @@ public class MyQueue<T> {
         public Node(T element) {
             this.element = element;
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "element=" + element +
+                    ", next=" + next +
+                    '}';
+        }
     }
 
     private Node<T> head;
@@ -38,16 +46,16 @@ public class MyQueue<T> {
     public void remove(int index) {
         Objects.checkIndex(index, size);
         T removeItem;
-        if (index == 0){
+        if (index == 0) {
             removeItem = head.element;
             head = head.next;
-            if (head == null){
+            if (head == null) {
                 tail = null;
             } else {
                 Node<T> prev = getIndex(index - 1);
                 removeItem = prev.element;
                 prev.next = prev.next.next;
-                if (index == size - 1){
+                if (index == size - 1) {
                     tail = prev;
                 }
             }
@@ -73,4 +81,12 @@ public class MyQueue<T> {
         return head.element;
     }
 
+    @Override
+    public String toString() {
+        return "MyQueue{" +
+                "head=" + head +
+                ", tail=" + tail +
+                ", size=" + size +
+                '}';
+    }
 }

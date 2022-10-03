@@ -1,5 +1,6 @@
 package module9;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class MyArrayList<E> {
@@ -50,4 +51,11 @@ public class MyArrayList<E> {
         return (E) arr[index];
     }
 
+    @Override
+    public String toString() {
+        return "MyArrayList{" +
+                "arr=" + Arrays.toString(arr) +
+                ", size=" + size +
+                '}';
+    }
 }

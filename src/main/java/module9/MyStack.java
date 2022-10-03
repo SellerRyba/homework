@@ -10,6 +10,14 @@ public class MyStack<T> {
         public Node(T element) {
             this.element = element;
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "element=" + element +
+                    ", next=" + next +
+                    '}';
+        }
     }
 
     private Node<T> head;
@@ -71,5 +79,14 @@ public class MyStack<T> {
         head = head.next;
         size--;
         return head.element;
+    }
+
+    @Override
+    public String toString() {
+        return "MyStack{" +
+                "head=" + head +
+                ", tail=" + tail +
+                ", size=" + size +
+                '}';
     }
 }

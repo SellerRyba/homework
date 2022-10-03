@@ -11,6 +11,14 @@ public class MyLinkedList<T> {
         public Node(T element) {
             this.element = element;
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "element=" + element +
+                    ", next=" + next +
+                    '}';
+        }
     }
 
     private Node<T> first;
@@ -70,5 +78,14 @@ public class MyLinkedList<T> {
     public T get(int index) {
         Objects.checkIndex(index, size);
         return getIndex(index).element;
+    }
+
+    @Override
+    public String toString() {
+        return "MyLinkedList{" +
+                "first=" + first +
+                ", last=" + last +
+                ", size=" + size +
+                '}';
     }
 }
