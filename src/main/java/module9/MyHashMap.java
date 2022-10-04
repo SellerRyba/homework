@@ -92,11 +92,14 @@ public class MyHashMap<K, V> {
     }
 
     public V get(K key) {
-        for (int i = 0; i < size; i++) {
-            if (table[i].getKey().equals(key)) {
-                return table[i].value;
-            } else if (table[i].next.getKey().equals(key)) {
-                return table[i].next.value;
+        int index = calculateIndex(key, table.length);
+        var current = table[index];
+        if (current != null && current.getKey().equals(key)){
+            return table[index].getValue();
+        }
+        while (current.next != null){
+            if (current.next.equals(key)){
+                return current.next.getValue();
             }
         }
         return null;

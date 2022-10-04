@@ -77,8 +77,10 @@ public class MyQueue<T> {
     }
 
     public T poll() {
+        T removeElement = head.element;
         head = head.next;
-        return head.element;
+        size--;
+        return removeElement;
     }
 
     @Override

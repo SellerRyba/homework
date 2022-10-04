@@ -72,13 +72,15 @@ public class MyStack<T> {
     }
 
     public T peek() {
-        return head.element;
+        T firstElement = head.element;
+        return firstElement;
     }
 
     public T pop() {
+        T removeElement = head.element;
         head = head.next;
         size--;
-        return head.element;
+        return removeElement;
     }
 
     @Override
