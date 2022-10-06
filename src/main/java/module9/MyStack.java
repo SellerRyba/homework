@@ -19,8 +19,9 @@ public class MyStack<T> {
     public void push(T element){
         if (arr.length == size){
             Object [] newArr = new Object[arr.length * 2];
-            System.arraycopy(arr, 0, newArr, 0, size);
+            System.arraycopy(arr, 0, newArr, 1, size);
             arr = newArr;
+            arr[0] = element;
         }
         Object [] newArr = new Object[arr.length];
         System.arraycopy(arr,0,newArr,1,size);
