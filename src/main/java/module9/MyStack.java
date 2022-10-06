@@ -1,93 +1,72 @@
 package module9;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class MyStack<T> {
-    static class Node<T> {
-        T element;
-        Node<T> next;
-
-        public Node(T element) {
-            this.element = element;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "element=" + element +
-                    ", next=" + next +
-                    '}';
-        }
-    }
-
-    private Node<T> head;
-    private Node<T> tail;
+    private Object [] arr;
+    private static final int DEFAULT_CAPACITY = 16;
     private int size;
-
-    private Node<T> getIndex(int index) {
-        Node<T> node = head;
-        for (int i = 0; i < index; i++) {
-            node = node.next;
+    public MyStack(int capacity){
+        if (capacity <= 0){
+            throw new IllegalArgumentException();
         }
-        return node;
+            arr = new Object[capacity];
     }
-
-    public void push(T element) {
-        Node newNode = new Node<>(element);
-        if (size == 0) {
-            head = this.tail = newNode;
-        } else {
-            head.next = head;
-            head = newNode;
+    public MyStack(){
+        this(DEFAULT_CAPACITY);
+    }
+    public void push(T element){
+        if (arr.length == size){
+            Object [] newArr = new Object[arr.length * 2];
+            System.arraycopy(arr, 0, newArr, 0, size);
+            arr = newArr;
         }
+        Object [] newArr = new Object[arr.length];
+        System.arraycopy(arr,0,newArr,1,size);
+        arr = newArr;
+        arr[0] = element;
         size++;
     }
-
-    public void remove(int index) {
+    public void remove(int index){
         Objects.checkIndex(index, size);
-        T removeItem;
-        if (index == 0) {
-            removeItem = head.element;
-            head = head.next;
-            if (head == null) {
-                tail = null;
-            } else {
-                Node<T> prev = getIndex(index - 1);
-                removeItem = prev.element;
-                prev.next = prev.next.next;
-                if (index == size - 1) {
-                    tail = prev;
-                }
+        T removeElement;
+        if (index == 0){
+            removeElement = (T) arr[index];
+            if(arr[index] == null){
+                arr[index - 1] = null;
             }
+        }else {
+            arr[index] = arr[index + 1];
+            arr[index + 1] = null;
+            size--;
         }
     }
-
-    public void clear() {
-        head = tail = null;
+    public void clear(){
+        for (Object ar: arr) {
+            ar = null;
+        }
         size = 0;
     }
-
-    public int size() {
+    public int size(){
         return size;
     }
-
-    public T peek() {
-        T firstElement = head.element;
-        return firstElement;
+    public T peek(){
+        return (T) arr[0];
     }
-
-    public T pop() {
-        T removeElement = head.element;
-        head = head.next;
+    public T pop(){
+        T removeElement = (T) arr[0];
         size--;
+        Object [] newArr = new Object[arr.length];
+        System.arraycopy(arr,1,newArr,0,size);
+        arr = newArr;
         return removeElement;
     }
 
     @Override
     public String toString() {
-        return "MyStack{" +
-                "head=" + head +
-                ", tail=" + tail +
+        return "Stack{" +
+                "arr=" + Arrays.toString(arr) +
                 ", size=" + size +
                 '}';
     }

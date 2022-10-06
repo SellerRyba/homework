@@ -39,5 +39,15 @@ public class Test {
 //        System.out.println(myStack.size());
 //        System.out.println(myStack.pop());
 //        System.out.println(myStack.size());
+//        System.out.println(myStack.peek());
+//        MyStack myStack = new MyStack<>();
+//        myStack.push("first");
+//        myStack.push("third");
+//        myStack.push("second");
+//        System.out.println(myStack);
+//        System.out.println(myStack.pop());
+//        System.out.println(myStack.peek());
+//        System.out.println(myStack);
+
     }
 }
