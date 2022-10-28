@@ -1,12 +1,9 @@
 package module10;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +46,16 @@ public class Person {
         for (int i = 2; i < arr.length - 1; i += 2) {
             users.add(String.valueOf(new Person(arr[i], arr[i + 1])));
         }
-        System.out.println(users);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(users);
-        System.out.println(json);
+        File file1 = new File("user.json");
+        OutputStream fos = new FileOutputStream(file1);
+        Gson gson = new Gson();
+        String newStr = "";
+        for (String user: users) {
+            newStr = gson.toJson(user);
+            fos.write(newStr.getBytes(StandardCharsets.UTF_8));
+        }
+
+
     }
 
     @Override

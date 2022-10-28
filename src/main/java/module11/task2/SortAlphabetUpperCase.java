@@ -1,23 +1,18 @@
 package module11.task2;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
-public class SortAlphabetUpperCase {
+public class SortAlphabetUpperCase<T> {
     public String sortAlp (List<String> arr){
-        List<String> sortArr = new ArrayList<>();
-        String result = "";
+        List<String> names = new ArrayList<>();
         for (String ar: arr) {
-            sortArr.add(ar);
+            names.add(ar);
         }
-        Collections.sort(sortArr);
-        StringJoiner stringJoiner = new StringJoiner(", ");
-        for (int i = sortArr.size() - 1; i >= 0; i--) {
-            stringJoiner.add(sortArr.get(i));
-        }
-        result = stringJoiner.toString();
-        return result;
+        List<String> sort = names.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+
+        return sort.toString().toUpperCase();
     }
 }

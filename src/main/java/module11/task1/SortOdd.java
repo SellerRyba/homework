@@ -2,16 +2,16 @@ package module11.task1;
 
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 public class SortOdd<T> {
     public String sortOdd(List<T> names) {
-        String res = "";
         StringJoiner stringJoiner = new StringJoiner(", ");
-        for (int i = 1; i < names.size() - 1; i+= 2) {
-            res = i + "." + names.get(i);
-            stringJoiner.add(res);
-        }
-        res = stringJoiner.toString();
-        return res;
+        IntStream.range(1, names.size()).filter(index -> index % 2 != 0).forEach(index -> {
+            String res = index + ". ";
+            stringJoiner.add(res + names.get(index));
+        });
+        String result = stringJoiner.toString();
+        return result;
     }
 }
