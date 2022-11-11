@@ -61,12 +61,14 @@ public class FizzBuzzProgramm {
                     try {
                         if (update) {
                             update = false;
-                            if (n % 3 == 0) {
-
+                            if (n % 3 == 0 && n % 5 != 0) {
                                 queue.put("fizz");
                             }
-                            Thread.sleep(100);
+                            else if (n % 3 == 0 && n % 5 == 0) {
+                                queue.put("fizzbuzz");
+                            }
                         }
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -95,12 +97,11 @@ public class FizzBuzzProgramm {
                     try {
                         if (update) {
                             update = false;
-                            if (n % 5 == 0) {
-
+                            if (n % 5 == 0 && n % 3 != 0) {
                                 queue.put("buzz");
                             }
-                            Thread.sleep(100);
                         }
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -108,40 +109,39 @@ public class FizzBuzzProgramm {
 
             }
         };
-        MyProducer fizzBuzzProducer = new MyProducer() {
-            int n;
-            boolean update = false;
-
-            @Override
-            public void setN(int n) {
-                this.n = n;
-                update = true;
-            }
-
-            @Override
-            public boolean isUpdate() {
-                return update;
-            }
-
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        if (update) {
-                            update = false;
-                            if (n % 3 == 0 && n % 5 == 0) {
-
-                                queue.put("fizzbuzz");
-                            }
-                            Thread.sleep(100);
-                        }
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-            }
-        };
+//        MyProducer fizzBuzzProducer = new MyProducer() {
+//            int n;
+//            boolean update = false;
+//
+//            @Override
+//            public void setN(int n) {
+//                this.n = n;
+//                update = true;
+//            }
+//
+//            @Override
+//            public boolean isUpdate() {
+//                return update;
+//            }
+//
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        if (update) {
+//                            update = false;
+//                            if (n % 3 == 0 && n % 5 == 0) {
+//                                queue.put("fizzbuzz");
+//                            }
+//                        }
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//
+//            }
+//        };
         Runnable consumer = () -> {
             while (true) {
                 while (!queue.isEmpty()) {
@@ -154,18 +154,18 @@ public class FizzBuzzProgramm {
                 }
             }
         };
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(4);
         executor.execute(numberProducer);
         executor.execute(fizzProducer);
         executor.execute(buzzProducer);
-        executor.execute(fizzBuzzProducer);
+//        executor.execute(fizzBuzzProducer);
         executor.execute(consumer);
-        for (int i = 1; i <= 15; i++) {
+        for (int i = 1; i <= 20; i++) {
             numberProducer.setN(i);
             fizzProducer.setN(i);
             buzzProducer.setN(i);
             fizzProducer.setN(i);
-            while (numberProducer.isUpdate() || fizzProducer.isUpdate() || buzzProducer.isUpdate() || fizzBuzzProducer.isUpdate()) {
+            while (numberProducer.isUpdate() || fizzProducer.isUpdate() || buzzProducer.isUpdate()) {
                 Thread.sleep(100);
             }
         }
