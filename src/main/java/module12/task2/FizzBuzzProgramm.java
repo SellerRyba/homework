@@ -63,8 +63,7 @@ public class FizzBuzzProgramm {
                             update = false;
                             if (n % 3 == 0 && n % 5 != 0) {
                                 queue.put("fizz");
-                            }
-                            else if (n % 3 == 0 && n % 5 == 0) {
+                            } else if (n % 3 == 0 && n % 5 == 0) {
                                 queue.put("fizzbuzz");
                             }
                         }
@@ -109,39 +108,7 @@ public class FizzBuzzProgramm {
 
             }
         };
-//        MyProducer fizzBuzzProducer = new MyProducer() {
-//            int n;
-//            boolean update = false;
-//
-//            @Override
-//            public void setN(int n) {
-//                this.n = n;
-//                update = true;
-//            }
-//
-//            @Override
-//            public boolean isUpdate() {
-//                return update;
-//            }
-//
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    try {
-//                        if (update) {
-//                            update = false;
-//                            if (n % 3 == 0 && n % 5 == 0) {
-//                                queue.put("fizzbuzz");
-//                            }
-//                        }
-//                        Thread.sleep(100);
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//
-//            }
-//        };
+
         Runnable consumer = () -> {
             while (true) {
                 while (!queue.isEmpty()) {
@@ -158,7 +125,6 @@ public class FizzBuzzProgramm {
         executor.execute(numberProducer);
         executor.execute(fizzProducer);
         executor.execute(buzzProducer);
-//        executor.execute(fizzBuzzProducer);
         executor.execute(consumer);
         for (int i = 1; i <= 20; i++) {
             numberProducer.setN(i);
